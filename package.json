@@ -38,6 +38,7 @@
   },
   "type": "module",
   "dependencies": {
+    "@floating-ui/dom": "^1.5.4",
     "@supabase/ssr": "^0.0.10",
     "@supabase/supabase-js": "^2.39.2",
     "jsonwebtoken": "^9.0.2",
