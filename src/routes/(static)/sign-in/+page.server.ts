@@ -8,20 +8,18 @@ const loginSchema = z.object({
     password: z.string().min(1, {message: "Password is required"})
 });
 
-export const load: PageServerLoad = async (event) => {
+export const load: PageServerLoad = async ({cookies, locals: {getSession}}) => {
 
-    const checking = isTokenTrue(event);
+    const session = await getSession();
 
-    if(checking === "admin") return redirect(302, "/teacher/create-class");
-    else if(checking === "authenticated") return redirect(302, "/student/my-classes");
-    else if(checking === "fraud cookie") {
-        event.cookies.delete("sb-fmnyedztmvguuxqfmwan-auth-token", {path: "/"});
-        redirect(302, "/sign-in?msg=Fraud-cookie-detected-You-pentesting?.");
-    }
-    else if(checking === "not valid cookie") {
-        event.cookies.delete("sb-fmnyedztmvguuxqfmwan-auth-token", {path: "/"});
-        console.log("not valid cookie")
-    }
+    if(session){
+        const checking = isTokenTrue(session);
+        if(checking === "admin") return redirect(302, "/teacher/create-class");
+        else if(checking === "authenticated") return redirect(302, "/learner/my-classes");  
+        else if(checking === "fraud cookie") cookies.delete("sb-fmnyedztmvguuxqfmwan-auth-token", {path: "/"});
+        
+    }else cookies.delete("sb-fmnyedztmvguuxqfmwan-auth-token", {path: "/"});
+
 
 };
 
