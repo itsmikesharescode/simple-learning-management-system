@@ -6,7 +6,7 @@
     export let loader = false;
     export let loader_name = "loader name";
     export let style = "bg-green-500 p-2 rounded-lg";
-    export let type: "button" | "submit" | "reset" | null | undefined = "button";
+    export let type: "button" | "submit" | "reset" | null | undefined = "submit";
     export let title = "";
 
 </script>
