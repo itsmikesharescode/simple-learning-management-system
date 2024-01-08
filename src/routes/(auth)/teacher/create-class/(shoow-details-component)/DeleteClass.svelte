@@ -7,8 +7,12 @@
 	import { toast } from "$lib/Helpers/toast";
 	import { getToastStore } from "@skeletonlabs/skeleton";
 	import { createClassState, navState } from "$lib";
+	import { encryptMessage } from "$lib/Helpers/clientEncryption";
+	import { scale } from "svelte/transition";
 
     const toastStore = getToastStore();
+
+    export let createdClass: CreatedCLassTB;
 
     type DropClassError = {
         confirm: string[]
@@ -38,6 +42,7 @@
                     $createClassState.createdClass = getClass;
                     dropClassLoader = false;
                     $createClassState.showDropClass = false;
+                    $createClassState.showDetail = 0.1;
                     break;
                 
                 case 402:
@@ -65,12 +70,14 @@
     {
         if(inputVal === condition) console.log("clear errors");
         inputErrors = null;
-    }
+    };
+
+    const classRef = encryptMessage(JSON.stringify(createdClass));
 
 </script>
 
 <div class="fixed left-0 right-0 top-0 bottom-0 bg-[#00000050] p-2">
-    <div class="min-h-[80dvh]  mx-auto md:max-w-xl flex items-center">
+    <div class="min-h-[80dvh]  mx-auto md:max-w-xl flex items-center" in:scale>
 
         <form method="POST" action="?/dropClass" enctype="multipart/form-data" use:enhance={dropClassNews} class="w-full">
 
@@ -82,13 +89,15 @@
                 <label>
                     <span class="flex gap-1 text-sm p-2">Write <p class="text-black font-bold bg-slate-300 px-2">{condition}</p> to confirm. </span>
                     <input name="confirm" type="text" class="input rounded-lg p-2 text-sm {inputVal === condition ? "text-white bg-green-500" : "" }" bind:value={inputVal} on:keyup={listener} />
-                    {#each [] ?? [] as err }
+                    {#each inputErrors?.confirm ?? [] as err }
                         <p class="text-red-500 text-xs p-2">{err}</p>
                     {/each}
                 </label>
 
+                <input type="hidden" name="classRef" class="hidden" value={classRef} />
+
                 <div class="flex justify-end gap-2">
-                    <Button type="button" style= "w-full sm:w-fit text-white font-bold bg-green-500 p-2 rounded-lg text-sm" name="Cancel" on:click />
+                    <Button type="button" style= "w-full sm:w-fit text-white font-bold bg-green-500 p-2 rounded-lg text-sm" name="Cancel" on:click={() => $createClassState.showConfirmDropClass = 0.1} />
 
                     <Button style= "w-full sm:w-fit text-white font-bold bg-red-500 p-2 rounded-lg text-sm" name="Confirm" loader={dropClassLoader} loader_name="Deleting.."/>
                 </div>

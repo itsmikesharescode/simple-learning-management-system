@@ -3,6 +3,8 @@ import type { Actions, PageServerLoad } from "./$types";
 
 import {ZodError, z} from "zod";
 import { generateCode } from "$lib/Helpers/generateCode";
+import { decryptMessage } from "$lib/Helpers/clientEncryption";
+import type { CreatedCLassTB } from "$lib/types";
 
 const createClassSchema = z.object({
     className: z.string().min(1, {message: "Class name must not be empty."}),
@@ -10,7 +12,8 @@ const createClassSchema = z.object({
 });
 
 const dropClassSchema = z.object({
-    confirm: z.string().refine(value => value === "confirm", {message: "Your input does not match the instructions."}),
+    confirm: z.string().refine(value => value === "Drop this class.", {message: "Your input does not match the instructions."}),
+    classRef: z.string().min(1, {message: "Class is missing."}),
 })
 
 export const load: PageServerLoad = async ({locals: { supabase, getSession }}) => {
@@ -71,10 +74,18 @@ export const actions: Actions = {
 
         try {
             const result = dropClassSchema.parse(formData);
-            
-            if(session){
-                
 
+            if(session){
+                const classRef = JSON.parse(decryptMessage(result.classRef)) as CreatedCLassTB;
+
+                const {error: deleteError} = await supabase.from("created_class_tb").delete().match({id: classRef.id, user_id: session.user.id});
+
+                if(deleteError) return fail(402, {msg: deleteError.message});
+                else {
+                    const {data:getClass, error:getClassError} = await supabase.from("created_class_tb").select("*").eq("user_id", session.user.id);
+                    if(getClassError) return fail(402, {msg: getClassError.message});
+                    else return fail(200, {msg: "Class deleted.", session, getClass});
+                }
 
             }else throw redirect(302, "/sign-in?You-have-to-login");
 

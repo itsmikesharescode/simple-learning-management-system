@@ -67,5 +67,6 @@ export const createClassState = writable({
     showDetail: 0.1,
     showCreateClass: false,
     showDropClass: false,
+    showConfirmDropClass: 0.1,
     createdClass:<CreatedCLassTB[] | null> null,
 })

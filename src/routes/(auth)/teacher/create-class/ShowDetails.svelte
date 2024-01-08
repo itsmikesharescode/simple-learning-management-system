@@ -3,13 +3,15 @@
 	import Button from "$lib/Components/Button.svelte";
 	import type { CreatedCLassTB } from "$lib/types";
 	import { scale } from "svelte/transition";
+	import DeleteClass from "./(shoow-details-component)/DeleteClass.svelte";
 
     export let index: number;
     export let createdClass: CreatedCLassTB;
 
-    let showWarning = false;
 
 </script>
+
+
 
 <div class="fixed bottom-0 top-0 left-0 right-0 bg-[#00000050] p-2">
     <div class="mx-auto md:max-w-[79dvw] flex flex-col min-h-[100dvh] justify-center" in:scale>
@@ -18,8 +20,15 @@
             <h3 class="h3 w-full">{createdClass.class_name} Details</h3>
             <div class="flex gap-2">
 
-               
-                <Button title="Click to drop this class: All learners who are enrolled in this class will be removed." style="bg-red-500 px-2 py-[0.3rem] rounded-lg text-sm text-white font-bold" name="Drop Class" />
+                {#if $createClassState.showConfirmDropClass === createdClass.id}
+                    <DeleteClass {createdClass} />
+                {/if}
+
+                <Button title="Click to drop this class: All learners who are enrolled in this class will be removed." 
+                style="bg-red-500 px-2 py-[0.3rem] rounded-lg text-sm text-white font-bold" 
+                name="Drop Class" 
+                on:click={() => $createClassState.showConfirmDropClass = createdClass.id}
+                />
                
 
                 <Button title="Click, to back." style="bg-green-500 px-2 py-[0.3rem] rounded-lg text-sm text-white font-bold" name="Back" on:click={() => $createClassState.showDetail = 0.1} />
