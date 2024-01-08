@@ -8,7 +8,7 @@ declare global {
 			supabase: SupabaseClient
 			supabaseAdmin: SupabaseClient
 			getSession:() => Promise <Session | null>
-			
+			checkRole: () => Promise <"has teacher" | "no teacher" | "has error">
 		}
 
 		

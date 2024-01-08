@@ -9,6 +9,7 @@
 	import { toast } from "$lib/Helpers/toast";
 	import { navState } from "$lib";
 	import type { Session } from "@supabase/supabase-js";
+	import { goto } from "$app/navigation";
 
     const toastStore = getToastStore();
     
@@ -39,8 +40,13 @@
     
                 case 200:
                     toast(msg, false, toastStore);
+                    const { user: { user_metadata: { role } } } = session;
                     $navState.session = session;
                     loginLoader = false;
+                    
+                    if (role === "Teacher") goto("/teacher/create-class");
+                    else if (role === "Learner") goto("/learner/my-classes");
+                    
                     break;
                 
                 case 402:

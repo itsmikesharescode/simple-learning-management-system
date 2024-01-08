@@ -1,5 +1,6 @@
 
 import { createServerClient } from '@supabase/ssr';
+import type { PostgrestError } from '@supabase/supabase-js';
 import { redirect, type Handle } from '@sveltejs/kit';
 import type { CookieSerializeOptions } from 'cookie';
 
@@ -35,10 +36,50 @@ export const handle: Handle = async ({ event, resolve, }) => {
     });
 
     event.locals.getSession = async () => {
-        const {
-        data: { session },
-        } = await event.locals.supabase.auth.getSession()
+        const { data: { session } } = await event.locals.supabase.auth.getSession()
         return session
+    };
+
+    event.locals.checkRole = async () => {
+
+        const {data:hasTeacher, error} = await event.locals.supabase.rpc("is_teacher") as {data: boolean | null, error: PostgrestError | null};
+
+        if(hasTeacher) return "has teacher";
+        else if(error) return "has error";
+        else return "no teacher";
+
+    };
+
+    const session = await event.locals.getSession();
+
+    // route protection
+    if(event.url.pathname.startsWith("/learner/")){
+       
+        if(session){
+            const value = await event.locals.checkRole();
+
+            if(value === "has error"){
+
+                event.cookies.delete("sb-jiertmisgqphuonnvwrx-auth-token", {path: "/"});
+                throw redirect(302, "/?there-is-an-error");
+
+            }else if(value === "has teacher") throw redirect(302, "/teacher/create-class");
+
+        }else throw redirect(302, "/sign-in?you-have-to-sign-in")
+
+    }else if(event.url.pathname.startsWith("/teacher/")){
+
+        if(session){
+            const value = await event.locals.checkRole();
+            
+            if(value === "has error"){
+
+                event.cookies.delete("sb-jiertmisgqphuonnvwrx-auth-token", {path: "/"});
+                throw redirect(302, "/?there-is-an-error");
+
+            }else if(value !== "has teacher") throw redirect(302, "/learner/my-classes");
+
+        }else throw redirect(302, "/sign-in?you-have-to-sign-in");
     };
 
 

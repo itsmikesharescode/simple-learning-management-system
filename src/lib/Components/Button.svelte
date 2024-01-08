@@ -5,7 +5,7 @@
     export let name = "button name";
     export let loader = false;
     export let loader_name = "loader name";
-    export let style = "bg-green-500 p-2 rounded-lg";
+    export let style = "bg-green-500 p-2 rounded-lg text-sm";
     export let type: "button" | "submit" | "reset" | null | undefined = "submit";
     export let title = "";
 
@@ -14,7 +14,7 @@
     @component
     @name: "Button"
     @loader: false
-    @style: "bg-green-500 p-2 rounded-lg"
+    @style: "bg-green-500 p-2 rounded-lg text-sm"
     @type: "button" | "submit" | "reset" | null | undefined = "button"
     @title: ""
     

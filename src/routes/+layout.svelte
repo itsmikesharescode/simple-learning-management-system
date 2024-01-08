@@ -14,6 +14,6 @@
 <Toast position="tr" rounded="rounded-lg" spacing="space-x-2" padding="py-3 px-5" max={5} transitions={true} buttonDismiss="rounded-full text-red-500"/>
 
 
-<div class="p-2">
+<div class="">
 	<slot />
 </div>

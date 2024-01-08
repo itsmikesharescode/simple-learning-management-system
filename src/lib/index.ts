@@ -1,53 +1,71 @@
 import type { Session } from "@supabase/supabase-js";
 import {writable} from "svelte/store";
+import type { CreatedCLassTB } from "./types";
 
 export const navState = writable({
     session:<Session | null> null,
     activeItem: "",
 
+    defaultNav: [
+        {
+            title: "created by mike",
+            url: "/"
+        }
+    ],
+
     learnerNav: [
         {
             title: "MyClasses",
-            url: "/my-classes",
+            url: "/learner/my-classes",
         },
 
         {
             title: "Announcements",
-            url: "/announcements",
+            url: "/learner/announcements",
         },
 
         {
             title: "Assignments",
-            url: "/assignments",
+            url: "/learner/assignments",
         },
 
         {
             title: "Quizzes",
-            url: "/quizzes",
+            url: "/learner/quizzes",
         }
     ],
 
     teacherNav: [
         {
             title: "CreateClass",
-            url: "/create-class",
+            url: "/teacher/create-class",
         },
 
         {
             title: "CreateAnnouncement",
-            url: "/create-announcement",
+            url: "/teacher/create-announcement",
         },
 
         {
             title: "CreateAssignment",
-            url: "/create-assignment",
+            url: "/teacher/create-assignment",
         },
         
         {
             title: "CreateQuiz",
-            url: "/create-quiz",
+            url: "/teacher/create-quiz",
         },
     ],
 
 
+});
+
+//teacher store management
+
+//create class
+export const createClassState = writable({
+    showDetail: 0.1,
+    showCreateClass: false,
+    showDropClass: false,
+    createdClass:<CreatedCLassTB[] | null> null,
 })
