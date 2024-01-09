@@ -62,7 +62,7 @@
 
         <!--Large Screen-->
         <div class="">
-            <div class="overflow-auto shadow hidden md:block h-[80dvh] bg-white rounded-b-lg">
+            <div class="overflow-auto shadow hidden md:block h-[60dvh] bg-white">
                 {#if showEnrolledArray}
                     
                     <table class="w-full">
@@ -120,7 +120,7 @@
         </div>
 
         <!--Small Screens-->
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 md:hidden p-2 bg-slate-400 h-[80dvh] rounded-b-lg overflow-auto">
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 md:hidden p-2 bg-slate-400 h-[60dvh] rounded-b-lg overflow-auto">
 
             {#if showEnrolledArray}
 
@@ -160,5 +160,8 @@
 
         </div>
 
+        <div class="bg-white p-2 flex justify-center rounded-b-lg">
+            <span class="text-black text-sm font-bold">Total Enrolled: {showEnrolledArray?.length}</span>
+        </div>
     </div>
 </div>

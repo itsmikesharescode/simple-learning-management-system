@@ -4,7 +4,7 @@
 	import { getToastStore } from "@skeletonlabs/skeleton";
 	import type { Session } from "@supabase/supabase-js";
 	import type { SubmitFunction } from "@sveltejs/kit";
-    import type { CreatedCLassTB } from "$lib/types";
+    import type { CreatedCLassTB, ServerNews } from "$lib/types";
 	import { toast } from "$lib/Helpers/toast";
 	import Button from "$lib/Components/Button.svelte";
 	import { scale } from "svelte/transition";
