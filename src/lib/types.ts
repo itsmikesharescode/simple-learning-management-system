@@ -16,4 +16,13 @@ export type CreatedCLassTB = {
     user_id: number
 };
 
-  
+//dedicated class tb types
+export type JoinedAndCreatedClassTB = {
+    id: number
+    created_at: string
+    user_id: string
+    user_email: string
+    class_code: string
+    fullname: string
+    created_class_tb: CreatedCLassTB
+}
