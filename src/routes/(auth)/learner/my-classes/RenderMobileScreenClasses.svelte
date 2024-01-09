@@ -22,11 +22,6 @@
             <div class="flex items-center space-x-2 text-sm">
                 
                 <div class="flex truncate gap-2">
-                <span> Enrolled:</span>
-                    <p class="">0</p>
-                </div>
-
-                <div class="flex truncate gap-2">
                     <span>Enroll Code:</span>
                     <p class="text-red-500">{joinedClass.created_class_tb.class_code}</p>
                 </div>

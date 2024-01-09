@@ -20,12 +20,7 @@
             </div>
 
             <div class="flex items-center space-x-2 text-sm">
-                
-                <div class="flex truncate gap-2">
-                <span> Enrolled:</span>
-                    <p class="">0</p>
-                </div>
-
+          
                 <div class="flex truncate gap-2">
                     <span>Enroll Code:</span>
                     <p class="text-red-500">{createdClass.class_code}</p>
@@ -36,7 +31,7 @@
             <Button title="Click, to view details" style="bg-blue-500 p-2 rounded-lg text-sm text-white font-bold" name="View Details" on:click={() => $createClassState.showDetail = index} />
 
             {#if $createClassState.showDetail === index}
-                <ShowDetails {index} {createdClass} />
+                <ShowDetails {createdClass} />
             {/if}
 
         </div>

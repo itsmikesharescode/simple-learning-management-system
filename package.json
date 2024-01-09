@@ -45,6 +45,7 @@
     "@types/crypto-js": "^4.2.1",
     "crypto-js": "^4.2.0",
     "jsonwebtoken": "^9.0.2",
+    "svelte-loading-spinners": "^0.3.4",
     "zod": "^3.22.4"
   }
 }

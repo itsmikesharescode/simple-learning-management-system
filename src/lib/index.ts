@@ -1,6 +1,6 @@
 import type { Session } from "@supabase/supabase-js";
 import {writable} from "svelte/store";
-import type { CreatedCLassTB, JoinedAndCreatedClassTB } from "./types";
+import type { CreatedCLassTB, JoinedAndCreatedClassTB, LearnersType } from "./types";
 
 export const navState = writable({
     session:<Session | null> null,
@@ -69,6 +69,7 @@ export const createClassState = writable({
     showDropClass: false,
     showConfirmDropClass: 0.1,
     createdClass:<CreatedCLassTB[] | null> null,
+    showEnrolledLearners:<LearnersType[] | null> null,
 })
 
 // learner store management

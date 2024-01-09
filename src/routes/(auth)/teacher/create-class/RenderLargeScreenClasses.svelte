@@ -12,7 +12,6 @@
                 <th class="w-20 p-3 text-sm font-semibold tracking-wide text-left truncate">Class Name</th>
                 <th class="p-3 text-sm font-semibold tracking-wide text-left truncate">Course Details</th>
                 <th class="w-24 p-3 text-sm font-semibold tracking-wide text-left truncate">Enroll Code</th>
-                <th class="w-24 p-3 text-sm font-semibold tracking-wide text-left truncate">Enrolled</th>
             </tr>
         </thead>
 
@@ -34,12 +33,11 @@
                         <span class="p-1.5 text-xs font-medium tracking-wider text-red-500 bg-opacity-50">{createdClass.class_code}</span>
                     </td>
 
-                    <td class="p-3 text-sm text-gray-700 whitespace-nowrap text-center">0</td>
                 </tr>
                 
 
                 {#if $createClassState.showDetail === index}
-                    <ShowDetails {index} {createdClass} />
+                    <ShowDetails {createdClass} />
                 {/if}
 
             {/each}
