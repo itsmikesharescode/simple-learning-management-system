@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { myClassesState } from "$lib";
+	import { myClassesState, navState } from "$lib";
 	import Button from "$lib/Components/Button.svelte";
 	import type { JoinedAndCreatedClassTB, LearnersType } from "$lib/types";
 	import { onMount } from "svelte";
@@ -28,6 +28,8 @@
         if(status === 200) showEnrolledArray = enrolledLearners;
         else if(status === 402) console.log(msg);
     });
+
+    const updateEnrolledLearners = (e: CustomEvent) => showEnrolledArray = e.detail;
 
 </script>
 <div class="fixed bottom-0 top-0 left-0 right-0 bg-[#00000050] p-2 z-10">
@@ -79,9 +81,13 @@
                                             <span class="p-1.5 text-xs font-medium uppercase tracking-wider bg-opacity-50">{enrolledLearner.created_at}</span>
                                         </td>
                 
-                                        <td class="p-2">
-                                            <Withdraw />
-                                        </td>
+                                        {#if enrolledLearner.user_email === $navState.session?.user.email}
+                                            <td class="p-2">
+                                                <Withdraw {enrolledLearner} on:updateEnrolledLearners={updateEnrolledLearners} />
+                                            </td>
+                                        {:else}
+                                        &#160;
+                                        {/if}
                                         
                                     </tr>
                                 {/each}
@@ -116,7 +122,7 @@
                                 <div class="text-sm font-bold flex items-center">
                                     <span class="w-full">{enrolledLearner.fullname}</span>
 
-                                    <Withdraw />
+                                    <Withdraw {enrolledLearner} />
                                 </div>
 
                                 <div class="">
