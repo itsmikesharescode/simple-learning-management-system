@@ -18,7 +18,7 @@
 
 
 
-<div class="">
+<div class="bg-[url('./lib/Components/Images/loading.svg')] ">
 	{#if $navigating}
 		<Loader />
 	{/if}
