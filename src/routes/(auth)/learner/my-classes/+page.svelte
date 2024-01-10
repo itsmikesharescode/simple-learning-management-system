@@ -10,7 +10,7 @@
 
 	onMount( () => {
 		const {getDedicatedClass, session} = data;
-
+		$navState.activeItem = "/learner/my-classes"
 		if(session) $myClassesState.getDedicatedClass = getDedicatedClass as any[], $navState.session = session;
 	});
 

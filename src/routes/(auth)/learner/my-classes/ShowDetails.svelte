@@ -122,7 +122,9 @@
                                 <div class="text-sm font-bold flex items-center">
                                     <span class="w-full">{enrolledLearner.fullname}</span>
 
-                                    <Withdraw {enrolledLearner} />
+                                    {#if enrolledLearner.user_email === $navState.session?.user.email}
+                                        <Withdraw {enrolledLearner} />
+                                    {/if}
                                 </div>
 
                                 <div class="">

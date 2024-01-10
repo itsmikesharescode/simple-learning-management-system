@@ -110,7 +110,7 @@ export const actions: Actions = {
                         const {data:getDedicatedClass, error:getDedicatedClassError} = await supabase.from("joined_class_tb").select(returnInnerQ()).eq("user_id", session.user.id);
 
                         if(getDedicatedClassError) return fail(402, {msg: getDedicatedClassError.message});
-                        else if(getDedicatedClass) return {msg: "Withdraw success.", session, getDedicatedClass, enrolledLearners};
+                        else if(getDedicatedClass) return {msg: "Withdrawal completed successfully.", session, getDedicatedClass, enrolledLearners};
                     }
                 };
 

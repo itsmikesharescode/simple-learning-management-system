@@ -45,7 +45,9 @@
     <div class="text-white hidden md:flex mr-5 items-center">
         <div class="flex gap-2 w-full justify-center">
             {#each $navState.defaultNav as selection }
-                <a href={selection.url} class="p-2 text-sm font-bold">{selection.title}</a>
+                <a title="Click, to navigate {selection.title}" href={selection.url} class="p-2 text-sm font-bold {$navState.activeItem === selection.url ? "bg-[#0000005d] rounded-xl" : "" }"
+                on:click={() => $navState.activeItem = selection.url}
+                >{selection.title}</a>
             {/each}
         </div>
 
@@ -83,7 +85,9 @@
 
             <div class="flex flex-col gap-2 justify-center items-center p-2">
                 {#each $navState.defaultNav as selection }
-                    <a href={selection.url} class="p-2 text-lg">{selection.title}</a>
+                    <a href={selection.url} class="p-2 text-lg {$navState.activeItem === selection.url ? "bg-[#0000005d] rounded-xl" : "" }"
+                    on:click={() => $navState.activeItem = selection.url}
+                    >{selection.title}</a>
                 {/each}
             </div>
             
