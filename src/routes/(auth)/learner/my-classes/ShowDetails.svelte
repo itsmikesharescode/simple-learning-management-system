@@ -5,6 +5,7 @@
 	import { onMount } from "svelte";
 	import { Circle3 } from "svelte-loading-spinners";
 	import { scale } from "svelte/transition";
+	import Withdraw from "./(show-details-components)/Withdraw.svelte";
 
     export let getDedicatedClass: JoinedAndCreatedClassTB;
 
@@ -12,30 +13,37 @@
 
     onMount( async () => {
 
-        console.log("otw")
+        const classCode = getDedicatedClass.class_code;
 
+        const res = await fetch("/learner/my-classes/API", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({classCode})
+        });
+
+        const {status, msg, enrolledLearners} = await res.json() as {status: number, msg: string, enrolledLearners: LearnersType[]};
+
+        if(status === 200) showEnrolledArray = enrolledLearners;
+        else if(status === 402) console.log(msg);
     });
 
 </script>
 <div class="fixed bottom-0 top-0 left-0 right-0 bg-[#00000050] p-2 z-10">
     <div class="mx-auto md:max-w-[79dvw] flex flex-col min-h-[100dvh] justify-center" in:scale>
 
-        <div class="text-black bg-gray-200 p-2 rounded-t-lg items-center flex flex-col sm:flex-row">
+        <div class="text-black bg-gray-200 p-2 rounded-t-lg items-center flex sm:flex-row">
             <h3 class="h3 w-full">{getDedicatedClass.created_class_tb.class_name} Details</h3>
             <div class="flex gap-2">
 
                 <!--Delete here-->
-
-                <Button title="Click to drop this class: All learners who are enrolled in this class will be removed." 
-                style="bg-red-500 px-2 py-[0.3rem] rounded-lg text-sm text-white font-bold" 
-                name="Drop Class" 
-                
-                />
                
-
                 <Button title="Click, to back." style="bg-green-500 px-2 py-[0.3rem] rounded-lg text-sm text-white font-bold" name="Back" on:click={() => $myClassesState.showDetail = 0.1} />
             </div>
         </div>
+
+        
 
         <!--Large Screen-->
         <div class="">
@@ -72,10 +80,9 @@
                                         </td>
                 
                                         <td class="p-2">
-                                            <!--Unenroll button here-->
+                                            <Withdraw />
                                         </td>
                                         
-                                    
                                     </tr>
                                 {/each}
                             </tbody>
@@ -97,19 +104,19 @@
         </div>
 
         <!--Small Screens-->
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 md:hidden p-2 bg-slate-400 h-[60dvh] rounded-b-lg overflow-auto">
+        <div class=" gap-4 md:hidden p-2 bg-slate-400 h-[60dvh] rounded-b-lg overflow-auto">
 
             {#if showEnrolledArray}
 
                 {#if showEnrolledArray.length}
-                    <div class="flex flex-col gap-2 sm:flex-row">
+                    <div class="flex flex-col gap-2">
                         {#each showEnrolledArray ?? [] as enrolledLearner }
-                            <div class="bg-[#F6D3D9] space-y-3 p-4 rounded-lg shadow gap-2 sm:h-fit">
+                            <div class="bg-[#F6D3D9] space-y-3 p-4 rounded-lg shadow gap-2">
 
                                 <div class="text-sm font-bold flex items-center">
                                     <span class="w-full">{enrolledLearner.fullname}</span>
 
-                                    <!--Unenroll btn here-->
+                                    <Withdraw />
                                 </div>
 
                                 <div class="">
