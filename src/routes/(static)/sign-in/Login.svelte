@@ -78,16 +78,16 @@
         <span class="text-center text-xs opacity-50 font-bold">Sign in to Learning System Management</span>
 
         <label>
-            <span class="font-bold">Email:</span>
-            <input name="email" title="Your account email." type="email" class="input p-2" placeholder="Enter email address."/>
+            <span class="font-bold text-sm">Email:</span>
+            <input name="email" title="Your account email." type="email" class="input p-2 text-sm" placeholder="Enter email address."/>
             {#each loginErrors?.email ?? [] as err }
                 <p class="text-red-500 text-xs p-2">{err}</p>
             {/each}
         </label>
 
         <label>
-            <span class="font-bold">Password:</span>
-            <input name="password" title="Your account password." type="password" class="input p-2" placeholder="Enter password."/>
+            <span class="font-bold text-sm">Password:</span>
+            <input name="password" title="Your account password." type="password" class="input p-2 text-sm" placeholder="Enter password."/>
             {#each loginErrors?.password ?? [] as err }
                 <p class="text-red-500 text-xs p-2">{err}</p>
             {/each}
@@ -95,15 +95,15 @@
 
         <Button 
         title="Click, to sign in your account." 
-        style="w-full bg-green-500 p-2 rounded-3xl input text-white" 
+        style="w-full bg-green-500 p-2 rounded-3xl input text-white text-sm font-bold" 
         name="Sign in"
         loader={loginLoader}
         loader_name="Signing in..."
         />
 
-        <a title="Click, to recover your account via email." href="?forgot-pass" class="text-center mt-5 text-blue-500 underline">Forgot Password?</a>
+        <a title="Click, to recover your account via email." href="?forgot-pass" class="text-center mt-5 text-sm text-blue-500 underline">Forgot Password?</a>
 
-        <p title="Click, to sign up and join our community of learners." class="text-center mt-5">Not yet a member? <a href="?sign-up" class="text-center mt-5 text-blue-500 underline">Create account</a></p>
+        <p title="Click, to sign up and join our community of learners." class="text-center mt-5 text-sm">Not yet a member? <a href="?sign-up" class="text-center mt-5 text-blue-500 underline">Create account</a></p>
     </form>
 
 </div>
