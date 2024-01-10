@@ -76,5 +76,6 @@ export const createClassState = writable({
 
 //my classes
 export const myClassesState = writable({
+    showDetail: 0.1,
     getDedicatedClass:<JoinedAndCreatedClassTB[] | null> null,
 });

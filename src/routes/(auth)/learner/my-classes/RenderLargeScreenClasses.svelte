@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { myClassesState } from "$lib";
 	import JoinClass from "./JoinClass.svelte";
+	import ShowDetails from "./ShowDetails.svelte";
 	
 </script>
 
@@ -28,7 +29,7 @@
                 
                     <td class="p-3 text-sm text-gray-700 whitespace-nowrap">
                         <button title="Click to view details of {getDedicatedClass.created_class_tb.class_name}" class="font-bold text-blue-500 hover:underline transition-all active:scale-95"
-                        
+                        on:click={() => $myClassesState.showDetail = index}
                         >{getDedicatedClass.created_class_tb.class_name}</button>
                     </td>
                 
@@ -42,6 +43,9 @@
 
                 </tr>
                 
+                {#if $myClassesState.showDetail === index}
+                    <ShowDetails {getDedicatedClass} />
+                {/if}
     
             {/each}
         
