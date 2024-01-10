@@ -5,6 +5,9 @@
 	storePopup.set({ computePosition, autoUpdate, offset, shift, flip, arrow });
 
 	import { initializeStores } from '@skeletonlabs/skeleton';
+	
+	import { navigating } from '$app/stores';
+	import Loader from '$lib/Components/Loader.svelte';
 
 	initializeStores();
 			
@@ -14,6 +17,12 @@
 <Toast position="tr" rounded="rounded-lg" spacing="space-x-2" padding="py-3 px-5" max={5} transitions={true} buttonDismiss="rounded-full text-red-500"/>
 
 
+
 <div class="">
+	{#if $navigating}
+		<Loader />
+	{/if}
 	<slot />
+
 </div>
+

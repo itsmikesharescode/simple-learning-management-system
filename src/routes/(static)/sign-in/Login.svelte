@@ -70,7 +70,8 @@
 
 <div class="min-h-[100dvh] flex justify-center items-center" in:scale>
 
-    <form method="POST" action="?/signIn" enctype="multipart/form-data" use:enhance={loginNews} class="flex flex-col gap-2 w-[350px]">
+    <form method="POST" action="?/signIn" enctype="multipart/form-data" use:enhance={loginNews} 
+    class="flex flex-col gap-2 w-[350px] bg-[#ffffffec] p-4 rounded-xl">
 
         <h1 class="h1 text-center">Sign in</h1>
 

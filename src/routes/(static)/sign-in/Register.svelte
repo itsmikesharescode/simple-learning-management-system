@@ -73,7 +73,8 @@
 
 <div class="min-h-[100dvh] flex justify-center items-center" in:scale>
 
-    <form method="POST" action="?/signUp" enctype="multipart/form-data" use:enhance={signupNews} class="flex flex-col gap-2 w-[350px]">
+    <form method="POST" action="?/signUp" enctype="multipart/form-data" use:enhance={signupNews} 
+    class="flex flex-col gap-2 w-[350px] bg-[#ffffffec] p-4 rounded-xl my-5">
 
         <h1 class="h1 text-center">Sign up</h1>
         <span class="text-center text-xs opacity-50 font-bold">Sign up to Learning System Management</span>

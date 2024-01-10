@@ -11,7 +11,7 @@
 
 <div class="min-h-[100dvh] flex justify-center items-center" in:scale>
 
-    <div class="flex flex-col gap-2 w-[350px]">
+    <div class="flex flex-col gap-2 w-[350px] bg-[#ffffffec] p-4 rounded-xl">
         
 
         <h3 class="h3 text-center">Forgot Password</h3>
