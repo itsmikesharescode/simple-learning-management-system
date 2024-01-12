@@ -8,9 +8,11 @@
 	import { toast } from "$lib/Helpers/toast";
 	import Button from "$lib/Components/Button.svelte";
 	import { scale } from "svelte/transition";
+    import { onMount } from "svelte";
 
     
     const toastStore = getToastStore();
+
     type InputCreateClass = {
         className: string[]
         classDetails: string[]
@@ -22,6 +24,10 @@
         errors: InputCreateClass
         session: Session
     }
+
+    onMount( () => {
+        $navState.activeItem = "/teacher/create-class";
+    })
 
     let createClassErrors: InputCreateClass | null = null;
 

@@ -4,9 +4,16 @@
     import { onMount } from "svelte";
 	import RenderLargeScreenAnnouncement from "./RenderLargeScreenAnnouncement.svelte";
 	import CreateAnnouncement from "./CreateAnnouncement.svelte";
+	import type { PageServerData } from "./$types";
+
+    export let data: PageServerData;
+    const {session, className, getAnnouncement} = data;
 
     onMount( () => {
         $navState.activeItem = "/teacher/create-announcement";
+
+        if(session) $navState.session = session, $createAnnouncementState.showClassName = className, $createAnnouncementState.showAnnouncements = getAnnouncement;
+        
     })
 
 </script>

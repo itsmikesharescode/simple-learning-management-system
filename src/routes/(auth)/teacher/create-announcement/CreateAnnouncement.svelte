@@ -1,12 +1,17 @@
 <script lang="ts">
 	import { enhance } from "$app/forms";
-	import { createAnnouncementState } from "$lib";
+	import { createAnnouncementState, navState } from "$lib";
 	import Button from "$lib/Components/Button.svelte";
-	import type { ServerNews } from "$lib/types";
+	import type { CreatedAnnouncementTB, ServerNews } from "$lib/types";
 	import type { Session } from "@supabase/supabase-js";
 	import type { SubmitFunction } from "@sveltejs/kit";
 	import { scale } from "svelte/transition";
+    import {encryptMessage} from "$lib/Helpers/clientEncryption";
+	import { getToastStore } from "@skeletonlabs/skeleton";
+	import { toast } from "$lib/Helpers/toast";
 
+    const toastStore = getToastStore();
+    
     type CreateAnnouncementError = {
         className: string[]
         classTitle: string[]
@@ -16,32 +21,49 @@
     type CreateAnnouncementNews = {
         msg: string
         session: Session
-        getAnnouncement: any[]
+        getAnnouncement: CreatedAnnouncementTB[]
         errors: CreateAnnouncementError
     };
 
     let inputErrors: CreateAnnouncementError | null = null;
+    let createAnnouncementLoader = false;
 
-    const createAnnouncementNews: SubmitFunction = () => {
-        return async ({ result, update }) => {
+    const createAnnouncementNews: SubmitFunction = () => 
+    {
+        createAnnouncementLoader = true;
+        return async ({ result, update }) => 
+        {
             const {status, data: {session, msg, getAnnouncement, errors} } = result as ServerNews<CreateAnnouncementNews>;
                 
             switch (status) {
                 case 200:
+                    $navState.session = session;
+                    $createAnnouncementState.showAnnouncements = getAnnouncement;
+                    toast(msg, false, toastStore);
+                    createAnnouncementLoader = false;
+                    $createAnnouncementState.showCreateAnnouncement = false;
                     break;
                 
                 case 402:
+                    toast(msg, true, toastStore);
+                    createAnnouncementLoader = false;
                     break;
                 
                 case 403:
+                    createAnnouncementLoader = false;
                     inputErrors = errors;
                     break;
+
                 default:
                     break;
+
             };
             await update();
         };
     };
+
+    
+
 
 </script>
 
@@ -57,9 +79,10 @@
 
                 <label>
                     <span class="text-sm text-black font-bold">Class Name:</span>
-                    <select name="className" class="select rounded-lg text-sm font-bold" value="">
-                        <option>Sample Class</option>
-                        <option>Sample Class 2</option>
+                    <select name="className" class="select rounded-lg text-sm font-bold" >
+                        {#each $createAnnouncementState.showClassName ?? [] as className }
+                            <option value={encryptMessage(JSON.stringify(className))}>{className.class_name}</option>
+                        {/each}
                     </select>
                     {#each inputErrors?.className ?? [] as err }
                         <p class="text-red-500 text-xs p-2">{err}</p>
@@ -84,7 +107,10 @@
 
                 <div class="flex gap-2">
                     <Button type="button" style="bg-red-500 w-full p-2 rounded-lg text-sm text-white font-bold" name="Cancel" on:click={ () => $createAnnouncementState.showCreateAnnouncement = false} />
-                    <Button style="bg-green-500 w-full p-2 rounded-lg text-sm text-white font-bold" name="Create"  />
+                    <Button style="bg-green-500 w-full p-2 rounded-lg text-sm text-white font-bold" name="Create"   
+                    loader={createAnnouncementLoader}
+                    loader_name="Creating.."
+                    />
                 </div>
             </div>
         </form>
