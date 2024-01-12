@@ -5,6 +5,7 @@
 	import RenderLargeScreenAnnouncement from "./RenderLargeScreenAnnouncement.svelte";
 	import CreateAnnouncement from "./CreateAnnouncement.svelte";
 	import type { PageServerData } from "./$types";
+	import RenderMobileScreenAnnouncement from "./RenderMobileScreenAnnouncement.svelte";
 
     export let data: PageServerData;
     const {session, className, getAnnouncement} = data;
@@ -28,4 +29,6 @@
     <!--Large Screen-->
     <RenderLargeScreenAnnouncement />
 
+    <!--Mobile Screen-->
+    <RenderMobileScreenAnnouncement />
 </div>

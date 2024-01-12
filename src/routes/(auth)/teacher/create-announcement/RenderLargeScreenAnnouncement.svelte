@@ -1,5 +1,6 @@
 <script lang="ts">
-    import {createAnnouncementState} from "$lib"
+    import {createAnnouncementState} from "$lib";
+    import ShowDetails from "./ShowDetails.svelte";
 </script>
 
 <div class="overflow-auto rounded-lg shadow hidden md:block">
@@ -14,12 +15,12 @@
         </thead>
 
         <tbody class="divide-y divide-gray-100">
-            {#each $createAnnouncementState.showAnnouncements ?? [] as createdAnnouncement, index }
+            {#each $createAnnouncementState.showAnnouncements ?? [] as createdAnnouncement }
                 <tr class="bg-white">
                 
                     <td class="p-3 text-sm text-gray-700 whitespace-nowrap">
                         <button title="Click to view details of " class="font-bold text-blue-500 hover:underline transition-all active:scale-95"
-                        
+                        on:click={() => $createAnnouncementState.showDetails = createdAnnouncement.id}
                         >{createdAnnouncement.announcement_title}</button>
                     </td>
                 
@@ -32,6 +33,11 @@
                     </td>
 
                 </tr>
+
+                {#if $createAnnouncementState.showDetails === createdAnnouncement.id}
+                    <ShowDetails {createdAnnouncement} />
+                {/if}
+                
 
             {/each}
         

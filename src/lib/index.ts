@@ -76,7 +76,9 @@ export const createClassState = writable({
 export const createAnnouncementState = writable({
     showCreateAnnouncement: false,
     showClassName:<ClassName[] | null> null,
-    showAnnouncements:<CreatedAnnouncementTB[] | null> null
+    showAnnouncements:<CreatedAnnouncementTB[] | null> null,
+    showDetails: 0.1,
+    showWarning: false,
 })
 
 // learner store management
