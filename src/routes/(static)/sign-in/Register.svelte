@@ -71,17 +71,17 @@
 
 </script>
 
-<div class="min-h-[100dvh] flex justify-center items-center" in:scale>
+<div class="min-h-[100dvh] flex justify-center items-center p-4" in:scale>
 
     <form method="POST" action="?/signUp" enctype="multipart/form-data" use:enhance={signupNews} 
-    class="flex flex-col gap-2 w-[350px] bg-[#ffffffec] p-4 rounded-xl my-5">
+    class="flex flex-col gap-2 w-[500px] bg-[#ffffffec] p-5 rounded-xl my-5">
 
         <h1 class="h1 text-center">Sign up</h1>
         <span class="text-center text-xs opacity-50 font-bold">Sign up to Learning System Management</span>
 
         <label>
             <span class="font-bold text-sm">Who are you:</span>
-            <select name="whoareyou" class="select text-sm">
+            <select name="whoareyou" class="select text-sm rounded-lg">
                 <option>Learner</option>
                 <option>Teacher</option>
             </select>
@@ -92,7 +92,7 @@
 
         <label>
             <span class="font-bold text-sm">First Name:</span>
-            <input name="fName" type="text" class="input p-2 text-sm" />
+            <input name="fName" type="text" class="input p-2 text-sm rounded-lg" />
             {#each signupErrors?.fName ?? [] as err }
                 <p class="text-red-500 text-xs p-2">{err}</p>
             {/each}
@@ -100,7 +100,7 @@
 
         <label>
             <span class="font-bold text-sm">Middle Name:</span>
-            <input name="mName" type="text" class="input p-2 text-sm" />
+            <input name="mName" type="text" class="input p-2 text-sm rounded-lg" />
             {#each signupErrors?.mName ?? [] as err }
                 <p class="text-red-500 text-xs p-2">{err}</p>
             {/each}
@@ -108,7 +108,7 @@
 
         <label>
             <span class="font-bold text-sm">Last Name:</span>
-            <input name="lName" type="text" class="input p-2 text-sm" />
+            <input name="lName" type="text" class="input p-2 text-sm rounded-lg" />
             {#each signupErrors?.lName ?? [] as err }
                 <p class="text-red-500 text-xs p-2">{err}</p>
             {/each}
@@ -116,7 +116,7 @@
 
         <label>
             <span class="font-bold text-sm">Email:</span>
-            <input name="email" type="email" class="input p-2 text-sm" />
+            <input name="email" type="email" class="input p-2 text-sm rounded-lg" />
             {#each signupErrors?.email ?? [] as err }
                 <p class="text-red-500 text-xs p-2">{err}</p>
             {/each}
@@ -124,7 +124,7 @@
 
         <label>
             <span class="font-bold text-sm">Password:</span>
-            <input name="password" type="password" class="input p-2 text-sm" />
+            <input name="password" type="password" class="input p-2 text-sm rounded-lg" />
             {#each signupErrors?.password ?? [] as err }
                 <p class="text-red-500 text-xs p-2">{err}</p>
             {/each}
@@ -132,13 +132,13 @@
 
         <label>
             <span class="font-bold text-sm">Confirm Password:</span>
-            <input name="confirmPassword" type="password" class="input p-2 text-sm" />
+            <input name="confirmPassword" type="password" class="input p-2 text-sm rounded-lg" />
             {#each signupErrors?.confirmPassword ?? [] as err }
                 <p class="text-red-500 text-xs p-2">{err}</p>
             {/each}
         </label>
 
-        <Button style="w-full bg-green-500 p-2 rounded-3xl input text-white text-sm font-bold" name="Create Account" loader={signupLoader} loader_name="Signing up.."/>
+        <Button style="w-full bg-green-500 p-2 rounded-lg input text-white text-sm font-bold" name="Create Account" loader={signupLoader} loader_name="Signing up.."/>
 
         <p class="text-center mt-5 text-sm">Already a member? <a href="/sign-in" class="text-center mt-5 text-blue-500 underline">Sign in</a></p>
 

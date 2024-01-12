@@ -72,6 +72,11 @@ export const createClassState = writable({
     showEnrolledLearners:<LearnersType[] | null> null,
 })
 
+//create announcement
+export const createAnnouncementState = writable({
+    showCreateAnnouncement: false,
+})
+
 // learner store management
 
 //my classes
@@ -79,3 +84,4 @@ export const myClassesState = writable({
     showDetail: 0.1,
     getDedicatedClass:<JoinedAndCreatedClassTB[] | null> null,
 });
+

@@ -9,9 +9,9 @@
 
 			
 
-<div class="min-h-[100dvh] flex justify-center items-center" in:scale>
+<div class="min-h-[100dvh] flex justify-center items-center p-4" in:scale>
 
-    <div class="flex flex-col gap-2 w-[350px] bg-[#ffffffec] p-4 rounded-xl text-sm">
+    <div class="flex flex-col gap-2 w-[500px] bg-[#ffffffec] p-5 rounded-xl text-sm">
         
 
         <h3 class="h3 text-center">Forgot Password</h3>
@@ -19,12 +19,12 @@
         <span class="text-center text-xs opacity-50 font-bold">Password Recovery to Learning System Management</span>
         <label>
             <span class="font-bold">Email:</span>
-            <input type="email" class="input p-2" placeholder="Enter your email address."/>
+            <input type="email" class="input p-2 rounded-lg" placeholder="Enter your email address."/>
         </label>
 
 
         <Button title="Click, to send a password reset link." 
-        style="w-full bg-green-500 p-2 rounded-3xl input text-white text-sm font-bold" 
+        style="w-full bg-green-500 p-2 rounded-lg input text-white text-sm font-bold" 
         name="Send Password Reset"/>
 
 

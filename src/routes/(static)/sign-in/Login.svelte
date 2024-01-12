@@ -68,10 +68,10 @@
 
 </script>
 
-<div class="min-h-[100dvh] flex justify-center items-center" in:scale>
+<div class="min-h-[100dvh] flex justify-center items-center p-4" in:scale>
 
     <form method="POST" action="?/signIn" enctype="multipart/form-data" use:enhance={loginNews} 
-    class="flex flex-col gap-2 w-[350px] bg-[#ffffffec] p-4 rounded-xl">
+    class="flex flex-col gap-2 w-[500px] bg-[#ffffffec] p-5 rounded-xl">
 
         <h1 class="h1 text-center">Sign in</h1>
 
@@ -79,7 +79,7 @@
 
         <label>
             <span class="font-bold text-sm">Email:</span>
-            <input name="email" title="Your account email." type="email" class="input p-2 text-sm" placeholder="Enter email address."/>
+            <input name="email" title="Your account email." type="email" class="input p-2 text-sm rounded-lg" placeholder="Enter email address."/>
             {#each loginErrors?.email ?? [] as err }
                 <p class="text-red-500 text-xs p-2">{err}</p>
             {/each}
@@ -87,7 +87,7 @@
 
         <label>
             <span class="font-bold text-sm">Password:</span>
-            <input name="password" title="Your account password." type="password" class="input p-2 text-sm" placeholder="Enter password."/>
+            <input name="password" title="Your account password." type="password" class="input p-2 text-sm rounded-lg" placeholder="Enter password."/>
             {#each loginErrors?.password ?? [] as err }
                 <p class="text-red-500 text-xs p-2">{err}</p>
             {/each}
@@ -95,7 +95,7 @@
 
         <Button 
         title="Click, to sign in your account." 
-        style="w-full bg-green-500 p-2 rounded-3xl input text-white text-sm font-bold" 
+        style="w-full bg-green-500 p-2 rounded-lg input text-white text-sm font-bold" 
         name="Sign in"
         loader={loginLoader}
         loader_name="Signing in..."
