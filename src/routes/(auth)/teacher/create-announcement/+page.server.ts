@@ -2,12 +2,17 @@ import { fail, redirect, type Actions } from "@sveltejs/kit";
 import {ZodError, z} from "zod";
 import type { PageServerLoad } from "./$types";
 import { decryptMessage } from "$lib/Helpers/clientEncryption";
-import type { ClassName } from "$lib/types";
+import type { ClassName, CreatedAnnouncementTB } from "$lib/types";
 
 const createAnnouncementSchema = z.object({
     className: z.string().min(1, {message: "Class name must not be empty."}),
     classTitle: z.string().min(5, {message: "Class announcement title must not be empty."}),
     announcementDetails: z.string().min(5, {message: "Announcement details must not be empty."}),
+});
+
+const deleteAnnounceSchema = z.object({
+    inputCompar: z.string().refine(value => value === "Delete this announcement.", {message: "Your input does not match the instructions."}),
+    createdAnnounceRef: z.string(),
 });
 
 export const load: PageServerLoad = async ({locals: {supabase, getSession}}) => {
@@ -73,6 +78,36 @@ export const actions: Actions = {
 
             return fail(403, {errors: fieldErrors});
            
+        }
+    },
+
+    deleteAnnounce: async ({request, locals: {supabase, getSession}}) => 
+    {
+        const formData = Object.fromEntries(await request.formData());
+        const session = await getSession();
+        try {
+            
+            if(session){
+                const result = deleteAnnounceSchema.parse(formData);
+                const decode = JSON.parse(decryptMessage(result.createdAnnounceRef)) as CreatedAnnouncementTB;
+                
+                const { error:deleteError } = await supabase.from("created_announcement_tb").delete().eq("id", decode.id);
+                if(deleteError) return fail(402, {msg: deleteError.message});
+                else {
+                    const {data:getAnnouncement, error:getAnnouncementError} = await supabase.from("created_announcement_tb")
+                    .select("id, created_at, created_class_id, created_class_name, created_class_code, announcement_title, announcement_details, announcement_creator")
+                    .eq("user_id", session.user.id);
+
+                    if(getAnnouncementError) return fail(402, {msg: getAnnouncementError.message});
+                    else if(getAnnouncement) return fail(200, {msg: "Announcement deleted.", session, getAnnouncement});
+                }
+            }else throw redirect(302, "/sign-in?you-have-to-sign-in");
+
+        } catch (error) {
+            const zodError = error as ZodError;
+            const {fieldErrors} = zodError.flatten();
+            console.log(fieldErrors)
+            return fail(403, {errors: fieldErrors});
         }
     }
 };

@@ -16,7 +16,7 @@
     <div class="" in:scale>
         {#if $createAnnouncementState.showWarning}
         
-            <DeleteAnnouncement />
+            <DeleteAnnouncement {createdAnnouncement} />
         
         {:else}
 

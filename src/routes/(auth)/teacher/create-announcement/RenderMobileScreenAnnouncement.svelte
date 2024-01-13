@@ -29,9 +29,13 @@
 
             </div>
 
-            <ShowDetails {createdAnnouncement} />
+            {#if $createAnnouncementState.showDetails === createdAnnouncement.id}
+                <ShowDetails {createdAnnouncement} />
+            {/if}
 
-            <Button title="Click, to view details" style="bg-blue-500 p-2 rounded-lg text-sm text-white font-bold" name="View Details" />
+            <Button title="Click, to view details" style="bg-blue-500 p-2 rounded-lg text-sm text-white font-bold" name="View Details"
+            on:click={() => $createAnnouncementState.showDetails = createdAnnouncement.id}
+            />
 
         </div>
     {/each}
