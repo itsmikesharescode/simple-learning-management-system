@@ -1,5 +1,7 @@
 <script lang="ts">
     import {myAnnouncementsState} from "$lib";
+    import ShowDetails from "./ShowDetails.svelte";
+
 </script>
 
 <div class="overflow-auto rounded-lg shadow hidden md:block">
@@ -18,8 +20,8 @@
                 <tr class="bg-white">
                 
                     <td class="p-3 text-sm text-gray-700 whitespace-nowrap">
-                        <button title="Click to view details of " class="font-bold text-blue-500 hover:underline transition-all active:scale-95"
-                        
+                        <button title="Click to view details of {createdAnnouncement.announcement_title} " class="font-bold text-blue-500 hover:underline transition-all active:scale-95"
+                        on:click={() => $myAnnouncementsState.showDetails = createdAnnouncement.id}
                         >{createdAnnouncement.announcement_title}</button>
                     </td>
                 
@@ -33,8 +35,11 @@
 
                 </tr>
 
-               
+                {#if $myAnnouncementsState.showDetails === createdAnnouncement.id}
+                    <ShowDetails {createdAnnouncement}/>
+                {/if}
 
+               
             {/each}
         
         </tbody>

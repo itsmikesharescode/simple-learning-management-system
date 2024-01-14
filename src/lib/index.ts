@@ -92,4 +92,5 @@ export const myClassesState = writable({
 //my announcements
 export const myAnnouncementsState = writable({
     showAnnouncements:<CreatedAnnouncementTB[] | null> null,
+    showDetails: 0.1,
 })

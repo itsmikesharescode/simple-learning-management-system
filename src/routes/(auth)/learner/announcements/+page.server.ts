@@ -15,7 +15,7 @@ export const load: PageServerLoad = async ({locals: {supabase, getSession}}) => 
             if(announcements){
                 announcements.map(outerItem => {
                     joinedClass.map(innerItem => {
-                        outerItem.created_class_code === innerItem.class_code ? dedicatedAnnouncement.push(outerItem) : console.log("No match");
+                        outerItem.created_class_code === innerItem.class_code ? dedicatedAnnouncement.push(outerItem) : null;
                     });
                 });
 
