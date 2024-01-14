@@ -81,6 +81,11 @@ export const createAnnouncementState = writable({
     showWarning: false,
 })
 
+//create assignment
+export const createAssignmentState = writable({
+    showCreateAssignment: false,
+})
+
 // learner store management
 
 //my classes
@@ -94,3 +99,5 @@ export const myAnnouncementsState = writable({
     showAnnouncements:<CreatedAnnouncementTB[] | null> null,
     showDetails: 0.1,
 })
+
+

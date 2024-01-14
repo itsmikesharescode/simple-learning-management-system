@@ -1,6 +1,8 @@
 <script lang="ts">
     import Button from "$lib/Components/Button.svelte";
     import {myAnnouncementsState} from "$lib";
+    import ShowDetails from "./ShowDetails.svelte";
+
 </script>
 
 
@@ -26,10 +28,12 @@
 
             </div>
 
-          
+            {#if $myAnnouncementsState.showDetails === createdAnnouncement.id}
+                <ShowDetails {createdAnnouncement} />
+            {/if}
 
             <Button title="Click, to view details" style="bg-blue-500 p-2 rounded-lg text-sm text-white font-bold" name="View Details"
-         
+            on:click={() => $myAnnouncementsState.showDetails = createdAnnouncement.id}
             />
 
         </div>
