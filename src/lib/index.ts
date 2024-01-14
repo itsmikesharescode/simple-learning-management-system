@@ -89,3 +89,7 @@ export const myClassesState = writable({
     getDedicatedClass:<JoinedAndCreatedClassTB[] | null> null,
 });
 
+//my announcements
+export const myAnnouncementsState = writable({
+    showAnnouncements:<CreatedAnnouncementTB[] | null> null,
+})
