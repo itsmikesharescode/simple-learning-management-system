@@ -86,6 +86,11 @@ export const createAssignmentState = writable({
     showCreateAssignment: false,
 })
 
+//create quiz
+export const createQuizState = writable({
+    showCreateQuiz: false,
+})
+
 // learner store management
 
 //my classes
